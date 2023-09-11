@@ -14,18 +14,31 @@ const page = () => {
     console.log(mainTask);
   };
 
+  const deleteHandler = (i) => {
+    let copyTask = [...mainTask]
+    copyTask.splice(i, 1);
+    setMainTask(copyTask);
+  }
+
   let renderTask = "No task Avaliable";
 
+ if(mainTask.length > 0) {
   renderTask = mainTask.map((t, i) => {
     return (
       <>
-        <div key={i} className="flex text-bold gap-4">
-          <h5>{t.title}</h5>
-          <h6>{t.desc}</h6>
-        </div>
+        <li key={i} className="flex items-center justify-between">
+          <div  className="flex text-bold items-center justify-between w-2/3">
+            <h5 className="text-xl font-bold">{t.title}</h5>
+            <h6 className="text-xl font-semibold">{t.desc}</h6>
+          </div>
+          <button onClick={()=>{
+            deleteHandler(i)
+          }} className="bg-blue-600 border-[1px] border-solid border-black rounded px-4 py-2 font-bold text-white"> Delete</button>
+        </li>
       </>
     );
   });
+ }
 
   return (
     <>
